@@ -10,6 +10,8 @@ import org.json.JSONObject;
 public class MyService extends Service {
     HTTPStreamer socket = null;
     private static boolean isOn = false;
+    private static boolean shouldRun = false;
+
 
     public MyService() {
 
@@ -39,7 +41,7 @@ public class MyService extends Service {
         }).start();
     }
 
-    public class Binder  extends android.os.Binder{
+    public class Binder extends android.os.Binder{
         public MyService getService(){
             return MyService.this;
         }
@@ -51,9 +53,11 @@ public class MyService extends Service {
         if(!isOn){
             run();
         }
-
         Log.d("MyService", "BIND");
         return new Binder();
+    }
 
+    public void stop(){
+        shouldRun = false;
     }
 }

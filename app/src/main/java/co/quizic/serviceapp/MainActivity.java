@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import co.quizic.generic.MyService;
 
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        serviceStarter();
+
+
+
+        Log.d("XXX","start");
+    }
+
+    private void serviceStarter(){
         ComponentName mServiceComponent = new ComponentName(this, MyService.class);
 
         JobInfo task = new JobInfo.Builder(0, mServiceComponent)
@@ -48,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         jobScheduler = (JobScheduler) this.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(task);
-
-
-
-        Log.d("XXX","start");
     }
 
     @Override
